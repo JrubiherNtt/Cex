@@ -92,7 +92,7 @@ function ApplicationsList() {
 
 // Example: Team Members List
 function TeamMembersList() {
-  const { canAction, visible } = usePermissions();
+  const { visible } = usePermissions();
 
   if (!visible('company.team.members_list')) {
     return <p>No tienes acceso a los miembros del equipo.</p>;

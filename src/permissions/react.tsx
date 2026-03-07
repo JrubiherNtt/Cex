@@ -37,19 +37,19 @@ export function usePermissions() {
   const { permissions, user } = ctx;
 
   const can = useCallback(
-    (action: Action, resource: Attributes | string, context?: Attributes) =>
+    (action: Action, resource: Attributes | string) =>
       permissions.can(user, action, resource),
     [permissions, user]
   );
 
   const visible = useCallback(
-    (componentId: string, context?: Attributes) =>
+    (componentId: string) =>
       permissions.visible(user, componentId),
     [permissions, user]
   );
 
   const canAction = useCallback(
-    (componentId: string, action: Action, context?: Attributes) =>
+    (componentId: string, action: Action) =>
       permissions.canAction(user, componentId, action),
     [permissions, user]
   );
@@ -62,7 +62,6 @@ interface ShowIfProps {
   action?: Action;
   resource?: Attributes | string;
   componentId?: string;
-  context?: Attributes;
   children: ReactNode;
   fallback?: ReactNode;
 }
@@ -71,7 +70,6 @@ export function ShowIf({
   action,
   resource,
   componentId,
-  context,
   children,
   fallback = null,
 }: ShowIfProps) {
@@ -81,13 +79,13 @@ export function ShowIf({
 
   if (componentId && action) {
     // Check if action is allowed on component
-    allowed = canAction(componentId, action, context);
+    allowed = canAction(componentId, action);
   } else if (componentId) {
     // Check if component is visible
-    allowed = visible(componentId, context);
+    allowed = visible(componentId);
   } else if (action && resource) {
     // Check if user can perform action on resource
-    allowed = can(action, resource, context);
+    allowed = can(action, resource);
   }
 
   return <>{allowed ? children : fallback}</>;
