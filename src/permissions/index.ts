@@ -6,7 +6,6 @@ import {
   Resource,
   StaticPermission,
   PermissionChecker,
-  PermissionResult,
   CreatePermissionsOpts,
 } from './types';
 
@@ -22,7 +21,7 @@ function defaultEvaluator(
   }
   // static permission
   const { action, resource: res } = policy as StaticPermission;
-  return action === user.action && res === resource;
+  return action === user.action && res === (resource?.id || resource);
 }
 
 export class Permissions implements PermissionChecker {
@@ -46,11 +45,9 @@ export class Permissions implements PermissionChecker {
   can(
     user: Attributes,
     action: Action,
-    resource: Attributes | Resource,
-    context?: Attributes
+    resource: Attributes | Resource
   ): boolean {
     const roles: string[] = user.roles || [];
-    const resourcePath = typeof resource === 'string' ? resource : (resource.path || '');
 
     // For simple RBAC: check if any role has the action+resource combination
     for (const role of roles) {
@@ -60,8 +57,7 @@ export class Permissions implements PermissionChecker {
           this.evaluator(
             policy,
             { ...user, action },
-            typeof resource === 'string' ? { id: resource, path: resource } : resource,
-            context
+            typeof resource === 'string' ? { id: resource, path: resource } : resource
           )
         ) {
           return true;
@@ -77,8 +73,7 @@ export class Permissions implements PermissionChecker {
    */
   visible(
     user: Attributes,
-    componentId: string,
-    context?: Attributes
+    componentId: string
   ): boolean {
     const roles: string[] = user.roles || [];
     // Navigate the tree structure to find the component's visibility rules
@@ -106,8 +101,7 @@ export class Permissions implements PermissionChecker {
   canAction(
     user: Attributes,
     componentId: string,
-    action: Action,
-    context?: Attributes
+    action: Action
   ): boolean {
     const roles: string[] = user.roles || [];
     const parts = componentId.split('.');

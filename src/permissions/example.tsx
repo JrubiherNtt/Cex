@@ -26,24 +26,26 @@ const appMemberUser = {
 };
 
 const anonymousUser = {
-  id: null,
+  id: 'anonymous',
   name: 'Anonymous',
   roles: ['anonymous'],
 };
 
 // Example: Company Detail Page
 function CompanyDetail() {
-  const { canAction, visible } = usePermissions();
+  const { visible, canAction } = usePermissions();
 
   if (!visible('company.detail')) {
     return <p>No tienes acceso a esta sección.</p>;
   }
 
+  const canEdit = canAction('company.detail', 'edit_instances');
+
   return (
     <div style={{ border: '1px solid blue', padding: '1rem', margin: '1rem 0' }}>
       <h2>Detalles de Empresa</h2>
 
-      <button disabled={!canAction('company.detail', 'edit_instances')}>
+      <button disabled={!canEdit}>
         Editar Instancias
       </button>
 
@@ -62,7 +64,7 @@ function CompanyDetail() {
 
 // Example: Applications List
 function ApplicationsList() {
-  const { canAction, visible } = usePermissions();
+  const { visible } = usePermissions();
 
   if (!visible('applications.list')) {
     return <p>No tienes acceso a aplicaciones.</p>;

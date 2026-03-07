@@ -1,8 +1,7 @@
-import React, { createContext, useContext, ReactNode, useCallback } from 'react';
+import { createContext, useContext, ReactNode, useCallback } from 'react';
 import {
   Action,
   Attributes,
-  PermissionConfig,
   CreatePermissionsOpts,
 } from './types';
 import { Permissions } from './index';
@@ -39,19 +38,19 @@ export function usePermissions() {
 
   const can = useCallback(
     (action: Action, resource: Attributes | string, context?: Attributes) =>
-      permissions.can(user, action, resource, context),
+      permissions.can(user, action, resource),
     [permissions, user]
   );
 
   const visible = useCallback(
     (componentId: string, context?: Attributes) =>
-      permissions.visible(user, componentId, context),
+      permissions.visible(user, componentId),
     [permissions, user]
   );
 
   const canAction = useCallback(
     (componentId: string, action: Action, context?: Attributes) =>
-      permissions.canAction(user, componentId, action, context),
+      permissions.canAction(user, componentId, action),
     [permissions, user]
   );
 
