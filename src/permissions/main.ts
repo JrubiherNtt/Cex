@@ -34,3 +34,18 @@ export { defaultPermissionConfig, createPermissionConfigFromLayouts } from './co
 
 // Exporta ejemplo (opcional, para demostración)
 export { ExampleApp } from './example';
+
+// Exporta tipos y utilidades para afiliaciones jerárquicas
+export type {
+  UserAffiliation,
+  ApplicationAffiliation,
+  TeamAffiliation,
+  UserWithAffiliations,
+  PermissionContext,
+} from './affiliations';
+
+export { getRolesForContext, hasAffiliation } from './affiliations';
+
+export { createAffiliationEvaluator, createContext, getEffectiveRoles } from './hierarchical';
+
+export { useHierarchicalPermissions } from './useHierarchicalPermissions';
