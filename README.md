@@ -172,6 +172,18 @@ Full API reference and examples: [src/permissions/USAGE.md](src/permissions/USAG
 
 ## Development
 
+### Proof of Concept (POC)
+
+A minimal demo component lives at `src/permissions/poc.tsx`. You can import it directly in a React application or the example project to quickly verify permission behaviors.
+
+```tsx
+import POC from '@cex/permissions/poc';
+
+function App() {
+  return <POC />;
+}
+```
+
 ### Install dependencies
 
 ```bash
