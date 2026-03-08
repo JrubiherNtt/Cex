@@ -26,6 +26,27 @@ Esta guía muestra cómo integrar el sistema de permisos en una arquitectura de 
 └────────┘  └────────┘  └────────┘  └────────┘
 ```
 
+### Ejemplo de MFEs encadenados
+
+Un caso común es cuando un MFE consume a otro internamente. La estructura sería:
+
+```
+Shell
+ ├─ MFE1
+ │    └─ MFE2
+ └─ MFE3
+```
+
+Aquí el Shell monta `MFE1` y `MFE3` en paralelo, mientras `MFE1` importa a
+`MFE2` dentro de su propio árbol. Esto es útil cuando un conjunto de UI depende
+de otro pero se despliega como proyecto separado.
+
+En este repositorio hay un ejemplo completo (`shell-chain-example.tsx` junto a
+`mfe1.tsx`, `mfe2.tsx` y `mfe3.tsx`) que demuestra el patrón con permisos
+jerárquicos.
+
+```
+
 ## 1. SHELL: Configuración Principal
 
 ### 1.1 Árbol de Componentes
