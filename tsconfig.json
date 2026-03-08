@@ -26,11 +26,20 @@
     "declarationMap": true,
     "sourceMap": true,
     "outDir": "./dist",
+    "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     }
   },
   "include": ["src"],
+  "exclude": [
+    "src/**/*.example.tsx",
+    "src/**/example.tsx",
+    "src/**/shell-example.tsx",
+    "src/**/mfe-examples.tsx",
+    "dist",
+    "node_modules"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
