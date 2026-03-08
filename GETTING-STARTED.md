@@ -23,6 +23,7 @@ This document shows you:
 - How Shell and MFEs communicate permissions
 - 3 communication patterns (URL, Context, EventBus)
 - Real-world examples (companies, applications, teams)
+- Chained MFEs: Shell -> MFE1 -> MFE2 and Shell -> MFE3 pattern (see shell-chain-example.tsx)
 - Ready-to-use code snippets
 
 **Example:**

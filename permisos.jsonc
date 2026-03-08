@@ -1,5 +1,8 @@
 {
   "layouts": {
+    "home": {
+      "show": ["admin", "company_owner", "company_member", "app_owner", "app_member"]
+    },
     "company": {
       "list": {
         "actions": {
