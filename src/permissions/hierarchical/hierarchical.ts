@@ -3,16 +3,12 @@
  * Allows dynamic role resolution based on context
  */
 
-import {
-  UserWithAffiliations,
-  PermissionContext,
-  getRolesForContext,
-} from './affiliations';
+import { UserWithAffiliations, PermissionContext, getRolesForContext } from './affiliations';
 import { Attributes } from '../core/types';
 
 /**
  * Create a custom evaluator that works with hierarchical affiliations
- * 
+ *
  * Usage:
  * ```ts
  * const evaluator = createAffiliationEvaluator();
@@ -23,12 +19,7 @@ import { Attributes } from '../core/types';
  * ```
  */
 export function createAffiliationEvaluator() {
-  return (
-    policy: any,
-    user: Attributes,
-    resource: Attributes,
-    context?: Attributes
-  ): boolean => {
+  return (policy: any, user: Attributes, resource: Attributes, context?: Attributes): boolean => {
     // Extract user and context from attributes
     const userWithAffiliations = user as unknown as UserWithAffiliations;
     const permContext = context as unknown as PermissionContext | undefined;
@@ -44,9 +35,7 @@ export function createAffiliationEvaluator() {
     if (typeof policy === 'object' && 'action' in policy) {
       const { action, resource: res } = policy;
       // Check if action matches and user has the required role
-      return (
-        action === user.action && res === (resource?.id || resource)
-      );
+      return action === user.action && res === (resource?.id || resource);
     }
 
     // Dynamic function-based policy
@@ -65,7 +54,7 @@ export function createAffiliationEvaluator() {
 export function createContext(
   companyId?: string,
   applicationId?: string,
-  teamId?: string
+  teamId?: string,
 ): PermissionContext {
   return {
     companyId,
@@ -76,14 +65,14 @@ export function createContext(
 
 /**
  * Determine effective roles for a user in a resource context
- * 
+ *
  * @param user User with affiliations
  * @param context Permission context (company, app, team IDs)
  * @returns Array of all applicable roles
  */
 export function getEffectiveRoles(
   user: UserWithAffiliations,
-  context?: PermissionContext
+  context?: PermissionContext,
 ): string[] {
   return getRolesForContext(user, context);
 }

@@ -1,9 +1,5 @@
 import { createContext, useContext, ReactNode, useCallback } from 'react';
-import {
-  Action,
-  Attributes,
-  CreatePermissionsOpts,
-} from '../core/types';
+import { Action, Attributes, CreatePermissionsOpts } from '../core/types';
 import { Permissions } from '../core/index';
 
 interface PermissionsContextValue {
@@ -37,21 +33,18 @@ export function usePermissions() {
   const { permissions, user } = ctx;
 
   const can = useCallback(
-    (action: Action, resource: Attributes | string) =>
-      permissions.can(user, action, resource),
-    [permissions, user]
+    (action: Action, resource: Attributes | string) => permissions.can(user, action, resource),
+    [permissions, user],
   );
 
   const visible = useCallback(
-    (componentId: string) =>
-      permissions.visible(user, componentId),
-    [permissions, user]
+    (componentId: string) => permissions.visible(user, componentId),
+    [permissions, user],
   );
 
   const canAction = useCallback(
-    (componentId: string, action: Action) =>
-      permissions.canAction(user, componentId, action),
-    [permissions, user]
+    (componentId: string, action: Action) => permissions.canAction(user, componentId, action),
+    [permissions, user],
   );
 
   return { can, visible, canAction, user };
@@ -66,13 +59,7 @@ interface ShowIfProps {
   fallback?: ReactNode;
 }
 
-export function ShowIf({
-  action,
-  resource,
-  componentId,
-  children,
-  fallback = null,
-}: ShowIfProps) {
+export function ShowIf({ action, resource, componentId, children, fallback = null }: ShowIfProps) {
   const { can, visible, canAction } = usePermissions();
 
   let allowed = true;

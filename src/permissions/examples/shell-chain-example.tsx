@@ -2,9 +2,7 @@
 // Demonstrates Shell coordinating MFEs: MFE1 (which consumes MFE2) and MFE3.
 
 import { useState } from 'react';
-import {
-  PermissionsProvider,
-} from '../context/permissions-context';
+import { PermissionsProvider } from '../context/permissions-context';
 import { defaultPermissionConfig } from '../core/config';
 import { createAffiliationEvaluator } from '../hierarchical/hierarchical';
 import { MFE1 } from './mfe1';

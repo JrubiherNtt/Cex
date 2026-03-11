@@ -14,7 +14,7 @@ function defaultEvaluator(
   policy: Policy,
   user: Attributes,
   resource: Attributes,
-  context?: Attributes
+  context?: Attributes,
 ): boolean {
   if (typeof policy === 'function') {
     return policy(user, resource, context);
@@ -30,7 +30,7 @@ export class Permissions implements PermissionChecker {
     policy: Policy,
     user: Attributes,
     resource: Attributes,
-    context?: Attributes
+    context?: Attributes,
   ) => boolean;
 
   constructor(opts: CreatePermissionsOpts) {
@@ -42,11 +42,7 @@ export class Permissions implements PermissionChecker {
    * Check if a user can perform an action on a resource.
    * resourcePath can be like "company.detail" or "applications.components.list"
    */
-  can(
-    user: Attributes,
-    action: Action,
-    resource: Attributes | Resource
-  ): boolean {
+  can(user: Attributes, action: Action, resource: Attributes | Resource): boolean {
     const roles: string[] = user.roles || [];
 
     // For simple RBAC: check if any role has the action+resource combination
@@ -57,7 +53,7 @@ export class Permissions implements PermissionChecker {
           this.evaluator(
             policy,
             { ...user, action },
-            typeof resource === 'string' ? { id: resource, path: resource } : resource
+            typeof resource === 'string' ? { id: resource, path: resource } : resource,
           )
         ) {
           return true;
@@ -71,15 +67,12 @@ export class Permissions implements PermissionChecker {
    * Check if a component is visible to the user.
    * componentId is like "company.list" or "applications.team"
    */
-  visible(
-    user: Attributes,
-    componentId: string
-  ): boolean {
+  visible(user: Attributes, componentId: string): boolean {
     const roles: string[] = user.roles || [];
     // Navigate the tree structure to find the component's visibility rules
     const parts = componentId.split('.');
     let current = (this.config as any).layouts || {};
-    
+
     for (const part of parts) {
       if (current[part]) {
         current = current[part];
@@ -98,11 +91,7 @@ export class Permissions implements PermissionChecker {
    * componentId: "company.detail"
    * action: "edit_instances"
    */
-  canAction(
-    user: Attributes,
-    componentId: string,
-    action: Action
-  ): boolean {
+  canAction(user: Attributes, componentId: string, action: Action): boolean {
     const roles: string[] = user.roles || [];
     const parts = componentId.split('.');
     let current = (this.config as any).layouts || {};
