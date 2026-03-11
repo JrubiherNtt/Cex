@@ -41,11 +41,9 @@ Aquí el Shell monta `MFE1` y `MFE3` en paralelo, mientras `MFE1` importa a
 `MFE2` dentro de su propio árbol. Esto es útil cuando un conjunto de UI depende
 de otro pero se despliega como proyecto separado.
 
-En este repositorio hay un ejemplo completo (`examples/shell-chain-example.tsx` junto a
-`examples/mfe1.tsx`, `examples/mfe2.tsx` y `examples/mfe3.tsx`) que demuestra el patrón con permisos
+En este repositorio hay un ejemplo completo (`src/permissions/examples/shell-chain-example.tsx` junto a
+`src/permissions/examples/mfe1.tsx`, `src/permissions/examples/mfe2.tsx` y `src/permissions/examples/mfe3.tsx`) que demuestra el patrón con permisos
 jerárquicos.
-
-```
 
 ## 1. SHELL: Configuración Principal
 

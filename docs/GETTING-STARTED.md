@@ -17,13 +17,13 @@ Welcome to **@cex/permissions** — A production-ready RBAC/ABAC permission syst
 
 ### I'm building a Shell + Micro-Frontends Architecture
 
-👉 **Start with:** [MFE-INTEGRATION.md](src/permissions/MFE-INTEGRATION.md) (15 min read)
+👉 **Start with:** [MFE-INTEGRATION.md](./permissions/MFE-INTEGRATION.md) (15 min read)
 
 This document shows you:
 - How Shell and MFEs communicate permissions
 - 3 communication patterns (URL, Context, EventBus)
 - Real-world examples (companies, applications, teams)
-- Chained MFEs: Shell -> MFE1 -> MFE2 and Shell -> MFE3 pattern (see shell-chain-example.tsx)
+- Chained MFEs: Shell -> MFE1 -> MFE2 and Shell -> MFE3 pattern (see ../src/permissions/examples/shell-chain-example.tsx)
 - Ready-to-use code snippets
 
 **Example:**
@@ -42,7 +42,7 @@ This document shows you:
 
 ### I need to understand the permission system
 
-👉 **Start with:** [USAGE.md](src/permissions/USAGE.md) (20 min read)
+👉 **Start with:** [USAGE.md](./permissions/USAGE.md) (20 min read)
 
 This covers:
 - Basic RBAC usage
@@ -54,7 +54,7 @@ This covers:
 
 ### I need to connect to a server API
 
-👉 **Start with:** [API-INTEGRATION.md](src/permissions/API-INTEGRATION.md) (25 min read)
+👉 **Start with:** [API-INTEGRATION.md](./permissions/API-INTEGRATION.md) (25 min read)
 
 This shows:
 - Fetching user data from `/api/v1/me`
@@ -67,7 +67,7 @@ This shows:
 
 ### I need to understand the hierarchy system
 
-👉 **Start with:** [HIERARCHICAL.md](src/permissions/HIERARCHICAL.md) (20 min read)
+👉 **Start with:** [HIERARCHICAL.md](./permissions/HIERARCHICAL.md) (20 min read)
 
 This explains:
 - How roles are resolved across levels
@@ -79,7 +79,7 @@ This explains:
 
 ### I need to test permissions
 
-👉 **Start with:** [TESTING.md](src/permissions/TESTING.md) (20 min read)
+👉 **Start with:** [TESTING.md](./permissions/TESTING.md) (20 min read)
 
 This includes:
 - Unit tests for RBAC/ABAC
@@ -237,22 +237,23 @@ src/permissions/
 │   ├── hierarchical.ts           # Dynamic evaluator
 │   └── useHierarchicalPermissions.ts # React hook
 │
-├── Documentation
-│   ├── README.md                 # Entry point
+├── Examples
+│   ├── examples/
+│   │   ├── shell-example.tsx       # Shell setup
+│   │   ├── mfe-examples.tsx        # 4 MFE patterns
+│   │   └── hierarchicalExample.tsx # Hierarchy demo
+│
+└── Tests
+    ├── permissions.test.ts       (17 tests)
+    └── affiliations.test.ts      (18 tests)
+
+docs/
+├── permissions/
 │   ├── USAGE.md                  ⭐ Basic API reference
 │   ├── HIERARCHICAL.md           ⭐ Hierarchy system
 │   ├── MFE-INTEGRATION.md        ⭐⭐ START HERE
 │   ├── API-INTEGRATION.md        ⭐ Server connection
 │   └── TESTING.md                ⭐ Test patterns
-│
-├── Examples
-│   ├── shell-example.tsx         # Shell setup
-│   ├── mfe-examples.tsx          # 4 MFE patterns
-│   └── hierarchicalExample.tsx   # Hierarchy demo
-│
-└── Tests
-    ├── permissions.test.ts       (17 tests)
-    └── affiliations.test.ts      (18 tests)
 ```
 
 ---
@@ -349,7 +350,7 @@ useEffect(() => {
 A: Update the `defaultPermissionConfig` in `config.ts` following the existing pattern.
 
 **Q: How do I validate permissions on the server?**  
-A: See the middleware example in [API-INTEGRATION.md](src/permissions/API-INTEGRATION.md).
+A: See the middleware example in [API-INTEGRATION.md](./permissions/API-INTEGRATION.md).
 
 **Q: Can I use this without hierarchies?**  
 A: Yes! Use `usePermissions()` instead of `useHierarchicalPermissions()`.
@@ -381,15 +382,15 @@ A: Yes! The library is framework-agnostic. See integration examples in docs.
 
 ## 🆘 Need Help?
 
-1. **For Shell + MFE setup:** [MFE-INTEGRATION.md](src/permissions/MFE-INTEGRATION.md)
-2. **For API connection:** [API-INTEGRATION.md](src/permissions/API-INTEGRATION.md)
-3. **For testing:** [TESTING.md](src/permissions/TESTING.md)
-4. **For API reference:** [USAGE.md](src/permissions/USAGE.md)
+1. **For Shell + MFE setup:** [MFE-INTEGRATION.md](./permissions/MFE-INTEGRATION.md)
+2. **For API connection:** [API-INTEGRATION.md](./permissions/API-INTEGRATION.md)
+3. **For testing:** [TESTING.md](./permissions/TESTING.md)
+4. **For API reference:** [USAGE.md](./permissions/USAGE.md)
 
 ---
 
 ## ✨ You're All Set!
 
-Everything is ready to integrate into your application. Start with [MFE-INTEGRATION.md](src/permissions/MFE-INTEGRATION.md) for the fastest path to a working integration.
+Everything is ready to integrate into your application. Start with [MFE-INTEGRATION.md](./permissions/MFE-INTEGRATION.md) for the fastest path to a working integration.
 
 **Happy coding! 🚀**
