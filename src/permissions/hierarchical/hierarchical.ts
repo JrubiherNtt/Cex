@@ -3,12 +3,12 @@
  * Allows dynamic role resolution based on context
  */
 
-import { Attributes } from './types';
 import {
   UserWithAffiliations,
   PermissionContext,
   getRolesForContext,
 } from './affiliations';
+import { Attributes } from '../core/types';
 
 /**
  * Create a custom evaluator that works with hierarchical affiliations

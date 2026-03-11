@@ -7,9 +7,9 @@ import {
   PermissionsProvider,
   usePermissions,
   ShowIf,
-} from '../react';
-import { defaultPermissionConfig } from '../config';
-import { createAffiliationEvaluator } from '../hierarchical';
+} from '../context/permissions-context';
+import { defaultPermissionConfig } from '../core/config';
+import { createAffiliationEvaluator } from '../hierarchical/hierarchical';
 
 // sample user with hierarchical roles
 const sampleUser = {

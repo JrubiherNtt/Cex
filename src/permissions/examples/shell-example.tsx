@@ -19,7 +19,7 @@ import {
 import {
   createAffiliationEvaluator,
 } from '@cex/permissions';
-import { defaultPermissionConfig } from '@cex/permissions/config';
+import { defaultPermissionConfig } from '@cex/permissio../core/config';
 
 // Mock de API
 async function fetchUserInfo(): Promise<UserWithAffiliations> {

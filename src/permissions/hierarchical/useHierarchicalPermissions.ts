@@ -3,14 +3,14 @@
  * Simplifies working with nested affiliations
  */
 
-import { usePermissions } from './react';
+import { usePermissions } from '../context/permissions-context';
 import {
   UserWithAffiliations,
   PermissionContext,
   getRolesForContext,
   hasAffiliation,
 } from './affiliations';
-import { Attributes } from './types';
+import { Attributes } from '../core/types';
 
 /**
  * Hook for managing permissions with hierarchical affiliations

@@ -1,5 +1,5 @@
 // mfe2.tsx
-import { useHierarchicalPermissions } from '../useHierarchicalPermissions';
+import { useHierarchicalPermissions } from '../hierarchical/useHierarchicalPermissions';
 
 export interface MFE2Props {
   companyId: string;

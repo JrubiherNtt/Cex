@@ -3,8 +3,8 @@ import {
   Action,
   Attributes,
   CreatePermissionsOpts,
-} from './types';
-import { Permissions } from './index';
+} from '../core/types';
+import { Permissions } from '../core/index';
 
 interface PermissionsContextValue {
   permissions: Permissions;

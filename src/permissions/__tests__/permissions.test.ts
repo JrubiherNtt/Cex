@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { Permissions } from '../index';
-import { defaultPermissionConfig } from '../config';
+import { Permissions } from '../core/index';
+import { defaultPermissionConfig } from '../core/config';
 
 describe('Permissions', () => {
   let permissions: Permissions;

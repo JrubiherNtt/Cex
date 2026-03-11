@@ -21,16 +21,16 @@ export type {
   PermissionChecker,
   UsePermissionsHook,
   CreatePermissionsOpts,
-} from './types';
+} from './core/types';
 
 // Exporta clase principal
-export { Permissions } from './index';
+export { Permissions } from './core/index';
 
 // Exporta utilidades de React
-export { PermissionsProvider, usePermissions, ShowIf } from './react';
+export { PermissionsProvider, usePermissions, ShowIf } from './context/permissions-context';
 
 // Exporta configuración default
-export { defaultPermissionConfig, createPermissionConfigFromLayouts } from './config';
+export { defaultPermissionConfig, createPermissionConfigFromLayouts } from './core/config';
 
 // Exporta tipos y utilidades para afiliaciones jerárquicas
 export type {
@@ -39,10 +39,14 @@ export type {
   TeamAffiliation,
   UserWithAffiliations,
   PermissionContext,
-} from './affiliations';
+} from './hierarchical/affiliations';
 
-export { getRolesForContext, hasAffiliation } from './affiliations';
+export { getRolesForContext, hasAffiliation } from './hierarchical/affiliations';
 
-export { createAffiliationEvaluator, createContext, getEffectiveRoles } from './hierarchical';
+export {
+  createAffiliationEvaluator,
+  createContext,
+  getEffectiveRoles,
+} from './hierarchical/hierarchical';
 
-export { useHierarchicalPermissions } from './useHierarchicalPermissions';
+export { useHierarchicalPermissions } from './hierarchical/useHierarchicalPermissions';

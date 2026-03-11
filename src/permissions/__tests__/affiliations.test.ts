@@ -4,7 +4,7 @@ import {
   hasAffiliation,
   UserWithAffiliations,
   PermissionContext,
-} from '../affiliations';
+} from '../hierarchical/affiliations';
 
 const mockUser: UserWithAffiliations = {
   id: 'user-1',
