@@ -6,10 +6,7 @@
 import { useState } from 'react';
 import { PermissionsProvider } from '../context/permissions-context';
 import { useHierarchicalPermissions } from '../hierarchical/useHierarchicalPermissions';
-import {
-  UserWithAffiliations,
-  PermissionContext,
-} from '../hierarchical/affiliations';
+import { UserWithAffiliations, PermissionContext } from '../hierarchical/affiliations';
 import { createAffiliationEvaluator } from '../hierarchical/hierarchical';
 import { defaultPermissionConfig } from '../core/config';
 
@@ -61,22 +58,13 @@ const mockUserWithAffiliations: UserWithAffiliations = {
 
 // Component demonstrating hierarchical permissions
 function HierarchicalExample() {
-  const {
-    getRoles,
-    getCompanies,
-    getApplicationsInCompany,
-    user,
-  } = useHierarchicalPermissions();
+  const { getRoles, getCompanies, getApplicationsInCompany, user } = useHierarchicalPermissions();
 
-  const [selectedCompany, setSelectedCompany] = useState<string | undefined>(
-    'company-1'
-  );
+  const [selectedCompany, setSelectedCompany] = useState<string | undefined>('company-1');
   const [selectedApp, setSelectedApp] = useState<string | undefined>('app-1');
 
   const companies = getCompanies();
-  const appsInCompany = selectedCompany
-    ? getApplicationsInCompany(selectedCompany)
-    : [];
+  const appsInCompany = selectedCompany ? getApplicationsInCompany(selectedCompany) : [];
 
   // Get roles in the current context
   const context: PermissionContext = {
@@ -123,7 +111,7 @@ function HierarchicalExample() {
       {/* Application Selection */}
       {selectedCompany && (
         <div style={{ marginBottom: '2rem' }}>
-          <h3>Applications in {companies.find(c => c.id === selectedCompany)?.name}</h3>
+          <h3>Applications in {companies.find((c) => c.id === selectedCompany)?.name}</h3>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             {appsInCompany.map((app) => (
               <button
@@ -166,7 +154,7 @@ function HierarchicalExample() {
                 roles: effectiveRoles,
               },
               null,
-              2
+              2,
             )}
           </pre>
         </div>

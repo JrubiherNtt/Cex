@@ -63,9 +63,7 @@ describe('Permissions', () => {
 
     it('should return true for multiple eligible roles', () => {
       const companyOwner = { roles: ['company_owner'] };
-      expect(permissions.canAction(companyOwner, 'company.detail', 'edit_instances')).toBe(
-        true
-      );
+      expect(permissions.canAction(companyOwner, 'company.detail', 'edit_instances')).toBe(true);
     });
 
     it('should return false if user does not have role for the action', () => {
@@ -86,9 +84,7 @@ describe('Permissions', () => {
 
     it('should return false for invalid action', () => {
       const admin = { roles: ['admin'] };
-      expect(permissions.canAction(admin, 'company.detail', 'non_existent_action')).toBe(
-        false
-      );
+      expect(permissions.canAction(admin, 'company.detail', 'non_existent_action')).toBe(false);
     });
 
     it('should handle user with no roles', () => {
@@ -113,16 +109,14 @@ describe('Permissions', () => {
 
     it('should allow app owners to create components', () => {
       const appOwner = { roles: ['app_owner'] };
-      expect(permissions.canAction(appOwner, 'applications.components.list', 'create')).toBe(
-        true
-      );
+      expect(permissions.canAction(appOwner, 'applications.components.list', 'create')).toBe(true);
     });
 
     it('should allow company owner to edit app instances', () => {
       const companyOwner = { roles: ['company_owner'] };
-      expect(
-        permissions.canAction(companyOwner, 'applications.detail', 'edit_instances')
-      ).toBe(true);
+      expect(permissions.canAction(companyOwner, 'applications.detail', 'edit_instances')).toBe(
+        true,
+      );
     });
 
     it('should show banner to anonymous users on company detail', () => {

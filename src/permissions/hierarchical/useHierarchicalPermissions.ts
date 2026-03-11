@@ -14,7 +14,7 @@ import { Attributes } from '../core/types';
 
 /**
  * Hook for managing permissions with hierarchical affiliations
- * 
+ *
  * Extends usePermissions() with context-aware evaluation
  */
 export function useHierarchicalPermissions() {
@@ -32,21 +32,14 @@ export function useHierarchicalPermissions() {
   /**
    * Check if user is affiliated with a company, application, or team
    */
-  const hasAffiliation_ = (
-    type: 'company' | 'application' | 'team',
-    id: string
-  ) => {
+  const hasAffiliation_ = (type: 'company' | 'application' | 'team', id: string) => {
     return hasAffiliation(userWithAffiliations, type, id);
   };
 
   /**
    * Check permission in a specific context
    */
-  const canInContext = (
-    action: string,
-    resource: string,
-    context?: PermissionContext
-  ) => {
+  const canInContext = (action: string, resource: string, context?: PermissionContext) => {
     return can(action, {
       id: resource,
       ...context,
@@ -64,9 +57,7 @@ export function useHierarchicalPermissions() {
    * Get all applications in a company
    */
   const getApplicationsInCompany = (companyId: string) => {
-    const company = userWithAffiliations?.companies?.find(
-      (c) => c.id === companyId
-    );
+    const company = userWithAffiliations?.companies?.find((c) => c.id === companyId);
     return company?.applications || [];
   };
 
@@ -74,10 +65,7 @@ export function useHierarchicalPermissions() {
    * Check if user can access a specific company
    */
   const canAccessCompany = (companyId: string) => {
-    return hasAffiliation_(
-      'company',
-      companyId
-    );
+    return hasAffiliation_('company', companyId);
   };
 
   /**
@@ -90,10 +78,7 @@ export function useHierarchicalPermissions() {
   /**
    * Check if user can perform an action within an application context
    */
-  const canActionInApplication = (
-    applicationId: string,
-    companyId: string | undefined
-  ) => {
+  const canActionInApplication = (applicationId: string, companyId: string | undefined) => {
     const context: PermissionContext = {
       applicationId,
       companyId,

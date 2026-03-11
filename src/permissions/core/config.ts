@@ -38,14 +38,7 @@ export const defaultPermissionConfig: PermissionConfig = {
         actions: {
           create: ['admin'],
         },
-        show: [
-          'admin',
-          'company_owner',
-          'company_member',
-          'app_owner',
-          'app_member',
-          'anonymous',
-        ],
+        show: ['admin', 'company_owner', 'company_member', 'app_owner', 'app_member', 'anonymous'],
       },
       detail: {
         actions: {
@@ -54,27 +47,14 @@ export const defaultPermissionConfig: PermissionConfig = {
           edit_owners: ['admin'],
           show_banner: ['anonymous'],
         },
-        show: [
-          'admin',
-          'company_owner',
-          'company_member',
-          'app_owner',
-          'app_member',
-          'anonymous',
-        ],
+        show: ['admin', 'company_owner', 'company_member', 'app_owner', 'app_member', 'anonymous'],
       },
       team: {
         list: {
           actions: {
             create: ['admin', 'company_owner'],
           },
-          show: [
-            'admin',
-            'company_owner',
-            'company_member',
-            'team_owner',
-            'team_member',
-          ],
+          show: ['admin', 'company_owner', 'company_member', 'team_owner', 'team_member'],
         },
         detail: {
           actions: {
@@ -83,13 +63,7 @@ export const defaultPermissionConfig: PermissionConfig = {
             edit_owners: ['admin', 'company_owner'],
             show_banner: ['anonymous'],
           },
-          show: [
-            'admin',
-            'company_owner',
-            'company_member',
-            'team_owner',
-            'team_member',
-          ],
+          show: ['admin', 'company_owner', 'company_member', 'team_owner', 'team_member'],
         },
         members_list: {
           actions: {
@@ -107,14 +81,7 @@ export const defaultPermissionConfig: PermissionConfig = {
           create: ['admin', 'company_owner'],
           my_applications: ['app_owner', 'app_member'],
         },
-        show: [
-          'admin',
-          'company_owner',
-          'company_member',
-          'app_owner',
-          'app_member',
-          'anonymous',
-        ],
+        show: ['admin', 'company_owner', 'company_member', 'app_owner', 'app_member', 'anonymous'],
       },
       detail: {
         actions: {
@@ -123,14 +90,7 @@ export const defaultPermissionConfig: PermissionConfig = {
           edit_owners: ['admin', 'company_owner'],
           show_banner: ['company_member', 'anonymous'],
         },
-        show: [
-          'admin',
-          'company_owner',
-          'company_member',
-          'app_owner',
-          'app_member',
-          'anonymous',
-        ],
+        show: ['admin', 'company_owner', 'company_member', 'app_owner', 'app_member', 'anonymous'],
       },
       team: {
         list: {

@@ -52,7 +52,7 @@ export interface PermissionContext {
  */
 export function getRolesForContext(
   user: UserWithAffiliations,
-  context?: PermissionContext
+  context?: PermissionContext,
 ): string[] {
   const roles = [...user.globalRoles];
 
@@ -107,7 +107,7 @@ export function getRolesForContext(
 export function hasAffiliation(
   user: UserWithAffiliations,
   affiliationType: 'company' | 'application' | 'team',
-  affiliationId: string
+  affiliationId: string,
 ): boolean {
   switch (affiliationType) {
     case 'company':
@@ -116,22 +116,16 @@ export function hasAffiliation(
       // Check global apps and apps within companies
       return (
         user.applications?.some((a) => a.id === affiliationId) ||
-        user.companies?.some((c) =>
-          c.applications?.some((a) => a.id === affiliationId)
-        ) ||
+        user.companies?.some((c) => c.applications?.some((a) => a.id === affiliationId)) ||
         false
       );
     case 'team':
       // Recursively check in applications
       return (
         user.teams?.some((t) => t.id === affiliationId) ||
-        user.applications?.some((a) =>
-          a.teams?.some((t) => t.id === affiliationId)
-        ) ||
+        user.applications?.some((a) => a.teams?.some((t) => t.id === affiliationId)) ||
         user.companies?.some((c) =>
-          c.applications?.some((a) =>
-            a.teams?.some((t) => t.id === affiliationId)
-          )
+          c.applications?.some((a) => a.teams?.some((t) => t.id === affiliationId)),
         ) ||
         false
       );

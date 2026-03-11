@@ -77,8 +77,8 @@ function App() {
   };
 
   return (
-    <PermissionsProvider 
-      config={defaultPermissionConfig} 
+    <PermissionsProvider
+      config={defaultPermissionConfig}
       user={user}
       evaluator={createAffiliationEvaluator()}
     >
@@ -94,11 +94,7 @@ function App() {
 import { useHierarchicalPermissions, ShowIf } from '@cex/permissions';
 
 function CompanyDetail({ companyId }) {
-  const { 
-    getRoles, 
-    canAccessCompany,
-    canAction 
-  } = useHierarchicalPermissions();
+  const { getRoles, canAccessCompany, canAction } = useHierarchicalPermissions();
 
   if (!canAccessCompany(companyId)) {
     return <p>Access Denied</p>;
@@ -115,9 +111,7 @@ function CompanyDetail({ companyId }) {
         <button>Edit Company</button>
       </ShowIf>
 
-      {roles.includes('company_owner') && (
-        <AdminPanel companyId={companyId} />
-      )}
+      {roles.includes('company_owner') && <AdminPanel companyId={companyId} />}
     </>
   );
 }
@@ -130,11 +124,7 @@ For Shell + MFE architecture, see [MFE-INTEGRATION.md](docs/permissions/MFE-INTE
 **Example Shell setup:**
 
 ```tsx
-<PermissionsProvider 
-  user={user} 
-  config={config}
-  evaluator={createAffiliationEvaluator()}
->
+<PermissionsProvider user={user} config={config} evaluator={createAffiliationEvaluator()}>
   <Navigation /> {/* Company/App selector */}
   <MFEContainer /> {/* Loads MFEs with context */}
 </PermissionsProvider>
@@ -145,13 +135,15 @@ For Shell + MFE architecture, see [MFE-INTEGRATION.md](docs/permissions/MFE-INTE
 ```tsx
 function ApplicationsMFE({ companyId }) {
   const { getApplicationsInCompany, getRoles } = useHierarchicalPermissions();
-  
+
   const apps = getApplicationsInCompany(companyId);
   const canCreate = getRoles({ companyId }).includes('company_owner');
-  
+
   return (
     <>
-      {apps.map(app => <AppCard key={app.id} app={app} />)}
+      {apps.map((app) => (
+        <AppCard key={app.id} app={app} />
+      ))}
       {canCreate && <button>Create App</button>}
     </>
   );

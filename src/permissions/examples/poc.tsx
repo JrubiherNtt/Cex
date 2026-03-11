@@ -3,11 +3,7 @@
 // Run this component by importing it into a Vite/React sandbox or the example
 // project for quick evaluation.
 
-import {
-  PermissionsProvider,
-  usePermissions,
-  ShowIf,
-} from '../context/permissions-context';
+import { PermissionsProvider, usePermissions, ShowIf } from '../context/permissions-context';
 import { defaultPermissionConfig } from '../core/config';
 import { createAffiliationEvaluator } from '../hierarchical/hierarchical';
 
@@ -53,9 +49,7 @@ function Dashboard() {
         <button>Create application</button>
       </ShowIf>
 
-      <p>
-        Can create instances? {canAction('company.detail', 'edit_instances') ? '✅' : '❌'}
-      </p>
+      <p>Can create instances? {canAction('company.detail', 'edit_instances') ? '✅' : '❌'}</p>
     </div>
   );
 }

@@ -46,22 +46,14 @@ export interface PermissionChecker {
     user: Attributes,
     action: Action,
     resource: Attributes | Resource,
-    context?: Attributes
+    context?: Attributes,
   ): boolean;
-  visible(
-    user: Attributes,
-    componentId: string,
-    context?: Attributes
-  ): boolean;
+  visible(user: Attributes, componentId: string, context?: Attributes): boolean;
 }
 
 // Example hook signature for React
 export interface UsePermissionsHook {
-  can: (
-    action: Action,
-    resource: Resource | Attributes,
-    context?: Attributes
-  ) => boolean;
+  can: (action: Action, resource: Resource | Attributes, context?: Attributes) => boolean;
   visible: (componentId: string, context?: Attributes) => boolean;
 }
 
@@ -69,5 +61,10 @@ export interface UsePermissionsHook {
 export type CreatePermissionsOpts = {
   config: PermissionConfig;
   // optional custom evaluator for policies
-  evaluator?: (policy: Policy, user: Attributes, resource: Attributes, context?: Attributes) => boolean;
+  evaluator?: (
+    policy: Policy,
+    user: Attributes,
+    resource: Attributes,
+    context?: Attributes,
+  ) => boolean;
 };

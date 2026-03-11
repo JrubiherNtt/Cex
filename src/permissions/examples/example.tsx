@@ -45,9 +45,7 @@ function CompanyDetail() {
     <div style={{ border: '1px solid blue', padding: '1rem', margin: '1rem 0' }}>
       <h2>Detalles de Empresa</h2>
 
-      <button disabled={!canEdit}>
-        Editar Instancias
-      </button>
+      <button disabled={!canEdit}>Editar Instancias</button>
 
       <ShowIf componentId="company.detail" action="edit_owners">
         <button>Cambiar Propietarios</button>
@@ -124,7 +122,9 @@ function Navigation() {
 
   return (
     <nav style={{ backgroundColor: '#f0f0f0', padding: '1rem' }}>
-      <h3>{user.name} ({user.roles.join(', ')})</h3>
+      <h3>
+        {user.name} ({user.roles.join(', ')})
+      </h3>
     </nav>
   );
 }
@@ -140,9 +140,7 @@ export function ExampleApp() {
 
         <div style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem' }}>
           <button onClick={() => setCurrentUser(adminUser)}>Admin</button>
-          <button onClick={() => setCurrentUser(companyOwnerUser)}>
-            Company Owner
-          </button>
+          <button onClick={() => setCurrentUser(companyOwnerUser)}>Company Owner</button>
           <button onClick={() => setCurrentUser(appMemberUser)}>App Member</button>
           <button onClick={() => setCurrentUser(anonymousUser)}>Anonymous</button>
         </div>

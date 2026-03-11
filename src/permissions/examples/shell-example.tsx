@@ -1,6 +1,6 @@
 /**
  * SHELL APPLICATION
- * 
+ *
  * El shell es responsable de:
  * 1. Obtener información del usuario
  * 2. Obtener afiliaciones del usuario
@@ -11,15 +11,9 @@
 import React, { useState, useEffect } from 'react';
 import { PermissionsProvider } from '@cex/permissions';
 import { useHierarchicalPermissions } from '@cex/permissions';
-import {
-  UserWithAffiliations,
-  PermissionContext,
-  createContext,
-} from '@cex/permissions';
-import {
-  createAffiliationEvaluator,
-} from '@cex/permissions';
-import { defaultPermissionConfig } from '@cex/permissio../core/config';
+import { UserWithAffiliations } from '@cex/permissions';
+import { createAffiliationEvaluator } from '@cex/permissions';
+import { defaultPermissionConfig } from '@cex/permissions/config';
 
 // Mock de API
 async function fetchUserInfo(): Promise<UserWithAffiliations> {
@@ -75,20 +69,15 @@ async function fetchUserInfo(): Promise<UserWithAffiliations> {
  * Maneja la navegación entre empresas y aplicaciones
  */
 function ShellNavigation() {
-  const {
-    getCompanies,
-    getApplicationsInCompany,
-  } = useHierarchicalPermissions();
+  const { getCompanies, getApplicationsInCompany } = useHierarchicalPermissions();
 
   const [selectedCompany, setSelectedCompany] = useState<string | null>(
-    getCompanies()[0]?.id || null
+    getCompanies()[0]?.id || null,
   );
   const [selectedApp, setSelectedApp] = useState<string | null>(null);
 
   const companies = getCompanies();
-  const apps = selectedCompany
-    ? getApplicationsInCompany(selectedCompany)
-    : [];
+  const apps = selectedCompany ? getApplicationsInCompany(selectedCompany) : [];
 
   // Cuando cambia la compañía, resetear app
   useEffect(() => {
@@ -173,7 +162,7 @@ function ShellNavigation() {
               applicationId: selectedApp,
             },
             null,
-            2
+            2,
           )}
         </pre>
       </div>
@@ -203,17 +192,11 @@ function ShellApp() {
   const evaluator = createAffiliationEvaluator();
 
   return (
-    <PermissionsProvider
-      config={defaultPermissionConfig}
-      user={user}
-      evaluator={evaluator}
-    >
+    <PermissionsProvider config={defaultPermissionConfig} user={user} evaluator={evaluator}>
       <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
         {/* Header */}
         <header style={{ padding: '1rem', backgroundColor: '#34495e', color: 'white' }}>
-          <h1 style={{ margin: 0 }}>
-            🏢 {user.name}
-          </h1>
+          <h1 style={{ margin: 0 }}>🏢 {user.name}</h1>
         </header>
 
         {/* Navigation Shell */}
@@ -238,10 +221,7 @@ function ShellApp() {
             }}
           >
             <h2>Contenedor de Aplicaciones (MFE)</h2>
-            <p>
-              Los MFEs reciben contexto de permisos vía event bus o context
-              API
-            </p>
+            <p>Los MFEs reciben contexto de permisos vía event bus o context API</p>
           </div>
         </div>
       </div>

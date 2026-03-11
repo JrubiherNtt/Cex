@@ -1,6 +1,6 @@
 /**
  * MFE EXAMPLES
- * 
+ *
  * Cada MFE (Micro-Frontend) recibe:
  * 1. Contexto de permisos (companyId, applicationId, teamId)
  * 2. Usuario con afiliaciones
@@ -44,9 +44,7 @@ export function CompaniesListMFE() {
               <td style={{ padding: '0.5rem' }}>
                 <strong>{company.name}</strong>
               </td>
-              <td style={{ padding: '0.5rem' }}>
-                {company.roles.join(', ')}
-              </td>
+              <td style={{ padding: '0.5rem' }}>{company.roles.join(', ')}</td>
               <td style={{ padding: '0.5rem' }}>
                 {/* Solo mostrar botón de edición si es owner */}
                 <ShowIf
@@ -106,11 +104,7 @@ export function ApplicationsMFE({ companyId }: ApplicationsMFEProps) {
       </div>
 
       {/* Botón crear nueva app (solo para owners) */}
-      <ShowIf
-        action="create"
-        resource="application"
-        fallback={null}
-      >
+      <ShowIf action="create" resource="application" fallback={null}>
         <button
           style={{
             marginBottom: '1rem',
@@ -126,7 +120,13 @@ export function ApplicationsMFE({ companyId }: ApplicationsMFEProps) {
         </button>
       </ShowIf>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1rem' }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+          gap: '1rem',
+        }}
+      >
         {apps.map((app) => (
           <div
             key={app.id}
@@ -138,13 +138,9 @@ export function ApplicationsMFE({ companyId }: ApplicationsMFEProps) {
             }}
           >
             <h4>{app.name}</h4>
-            <p style={{ fontSize: '12px', color: '#7f8c8d' }}>
-              Roles: {app.roles.join(', ')}
-            </p>
+            <p style={{ fontSize: '12px', color: '#7f8c8d' }}>Roles: {app.roles.join(', ')}</p>
             <div style={{ marginTop: '0.5rem' }}>
-              <button style={{ marginRight: '0.5rem', padding: '0.25rem 0.5rem' }}>
-                Abrir
-              </button>
+              <button style={{ marginRight: '0.5rem', padding: '0.25rem 0.5rem' }}>Abrir</button>
               <ShowIf action="edit" resource={app.id} fallback={null}>
                 <button style={{ padding: '0.25rem 0.5rem' }}>Editar</button>
               </ShowIf>
@@ -165,11 +161,8 @@ interface ApplicationDetailMFEProps {
   applicationId: string;
 }
 
-export function ApplicationDetailMFE({
-  companyId,
-  applicationId,
-}: ApplicationDetailMFEProps) {
-  const { getRoles, visible, canAction } = useHierarchicalPermissions();
+export function ApplicationDetailMFE({ companyId, applicationId }: ApplicationDetailMFEProps) {
+  const { getRoles, canAction } = useHierarchicalPermissions();
 
   const context: PermissionContext = {
     companyId,
@@ -191,10 +184,7 @@ export function ApplicationDetailMFE({
       </div>
 
       {/* Sección de configuración - visible solo para propietarios */}
-      <ShowIf
-        componentId="applications.detail"
-        action="edit_instances"
-      >
+      <ShowIf componentId="applications.detail" action="edit_instances">
         <div
           style={{
             padding: '1rem',
@@ -221,10 +211,7 @@ export function ApplicationDetailMFE({
       </ShowIf>
 
       {/* Sección de Admin - solo admin global */}
-      <ShowIf
-        componentId="applications.detail"
-        action="edit_owners"
-      >
+      <ShowIf componentId="applications.detail" action="edit_owners">
         <div
           style={{
             padding: '1rem',
@@ -262,7 +249,10 @@ export function ApplicationDetailMFE({
             }}
           >
             <h5>Dashboard Principal</h5>
-            <p>Acceso: {getRoles(context).some((r) => ['app_owner', 'app_member'].includes(r)) ? '✅' : '❌'}</p>
+            <p>
+              Acceso:{' '}
+              {getRoles(context).some((r) => ['app_owner', 'app_member'].includes(r)) ? '✅' : '❌'}
+            </p>
           </div>
           <div
             style={{
@@ -290,7 +280,7 @@ interface TeamsMFEProps {
 }
 
 export function TeamsMFE({ companyId, applicationId }: TeamsMFEProps) {
-  const { getRoles, canAction } = useHierarchicalPermissions();
+  const { getRoles } = useHierarchicalPermissions();
 
   const context: PermissionContext = {
     companyId,
@@ -303,22 +293,18 @@ export function TeamsMFE({ companyId, applicationId }: TeamsMFEProps) {
     { id: 'team-2', name: 'Backend', members: 3 },
   ];
 
-  const canManageTeams = canAction('company.team.members_list', 'add_member');
-
   return (
     <div style={{ border: '2px solid #e74c3c', padding: '1rem', borderRadius: '8px' }}>
       <h3>👥 Equipos</h3>
 
       <div style={{ marginBottom: '1rem', padding: '0.5rem', backgroundColor: '#ecf0f1' }}>
         <p>
-          <strong>Mi nivel:</strong> {rolesInContext.includes('team_owner') ? '👑 Team Owner' : '👤 Member'}
+          <strong>Mi nivel:</strong>{' '}
+          {rolesInContext.includes('team_owner') ? '👑 Team Owner' : '👤 Member'}
         </p>
       </div>
 
-      <ShowIf
-        componentId="company.team.members_list"
-        action="add_member"
-      >
+      <ShowIf componentId="company.team.members_list" action="add_member">
         <button
           style={{
             marginBottom: '1rem',
@@ -345,14 +331,9 @@ export function TeamsMFE({ companyId, applicationId }: TeamsMFEProps) {
           }}
         >
           <h5>{team.name}</h5>
-          <p style={{ margin: '0.5rem 0', fontSize: '14px' }}>
-            Miembros: {team.members}
-          </p>
+          <p style={{ margin: '0.5rem 0', fontSize: '14px' }}>Miembros: {team.members}</p>
           <div>
-            <ShowIf
-              componentId="company.team.members_list"
-              action="remove_member"
-            >
+            <ShowIf componentId="company.team.members_list" action="remove_member">
               <button style={{ padding: '0.25rem 0.5rem', fontSize: '12px' }}>
                 Remover Miembro
               </button>
