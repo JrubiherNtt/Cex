@@ -32,7 +32,7 @@ export function createAffiliationEvaluator() {
     getRolesForContext(userWithAffiliations, permContext);
 
     // Static permission check
-    if (typeof policy === 'object' && 'action' in policy) {
+    if (policy !== null && typeof policy === 'object' && 'action' in policy) {
       const { action, resource: res } = policy;
       // Check if action matches and user has the required role
       return action === user.action && res === (resource?.id || resource);

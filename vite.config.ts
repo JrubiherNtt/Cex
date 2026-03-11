@@ -42,12 +42,10 @@ export default defineConfig({
       all: true,
       include: ['src'],
       exclude: [
+        'src/permissions/__tests__/**',
         'src/permissions/examples/**',
         'src/permissions/main.ts',
-        'src/permissions/context/**',
         'src/permissions/core/types.ts',
-        'src/permissions/hierarchical/hierarchical.ts',
-        'src/permissions/hierarchical/useHierarchicalPermissions.ts',
       ],
       thresholds: {
         statements: 90,

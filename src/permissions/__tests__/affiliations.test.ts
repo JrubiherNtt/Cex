@@ -1,62 +1,12 @@
-import { describe, it, expect } from 'vitest';
 import {
   getRolesForContext,
   hasAffiliation,
   UserWithAffiliations,
   PermissionContext,
 } from '../hierarchical/affiliations';
+import { extendedAffiliationsMockUser } from './fixtures/hierarchical-users';
 
-const mockUser: UserWithAffiliations = {
-  id: 'user-1',
-  name: 'John Doe',
-  email: 'john@example.com',
-  globalRoles: ['user', 'anonymous'],
-  companies: [
-    {
-      id: 'company-1',
-      name: 'Company A',
-      roles: ['company_owner'],
-      applications: [
-        {
-          id: 'app-1',
-          name: 'App A',
-          roles: ['app_owner'],
-          teams: [
-            {
-              id: 'team-1',
-              name: 'Team A',
-              roles: ['team_owner'],
-            },
-          ],
-        },
-        {
-          id: 'app-2',
-          name: 'App B',
-          roles: ['app_member'],
-        },
-      ],
-    },
-    {
-      id: 'company-2',
-      name: 'Company B',
-      roles: ['company_member'],
-    },
-  ],
-  applications: [
-    {
-      id: 'global-app-1',
-      name: 'Global App',
-      roles: ['app_member'],
-      teams: [
-        {
-          id: 'global-team-1',
-          name: 'Global Team',
-          roles: ['team_member'],
-        },
-      ],
-    },
-  ],
-};
+const mockUser: UserWithAffiliations = extendedAffiliationsMockUser;
 
 describe('Hierarchical Affiliations', () => {
   describe('getRolesForContext', () => {
@@ -115,6 +65,23 @@ describe('Hierarchical Affiliations', () => {
       const uniqueRoles = new Set(roles);
       expect(roles.length).toBe(uniqueRoles.size);
     });
+
+    it('should handle team-only global context (without application or company)', () => {
+      const userWithGlobalTeams: UserWithAffiliations = {
+        ...mockUser,
+        teams: [
+          {
+            id: 'global-team-only',
+            name: 'Global Team Only',
+            roles: ['team_observer'],
+          },
+        ],
+      };
+
+      const context: PermissionContext = { teamId: 'global-team-only' };
+      const roles = getRolesForContext(userWithGlobalTeams, context);
+      expect(roles).toContain('team_observer');
+    });
   });
 
   describe('hasAffiliation', () => {
@@ -151,6 +118,59 @@ describe('Hierarchical Affiliations', () => {
     it('should return false for inaccessible team', () => {
       expect(hasAffiliation(mockUser, 'team', 'team-999')).toBe(false);
     });
+
+    it('should return false when global teams exist but none matches', () => {
+      const userWithNonMatchingGlobalTeams: UserWithAffiliations = {
+        id: 'user-no-team-match',
+        name: 'No Team Match',
+        email: 'no-team-match@example.com',
+        globalRoles: ['user'],
+        teams: [
+          {
+            id: 'some-other-team',
+            name: 'Some Other Team',
+            roles: ['team_member'],
+          },
+        ],
+        applications: [],
+        companies: [],
+      };
+
+      expect(hasAffiliation(userWithNonMatchingGlobalTeams, 'team', 'team-999')).toBe(false);
+    });
+
+    it('should return true for team found only inside company applications', () => {
+      const userWithTeamOnlyInCompanyApps: UserWithAffiliations = {
+        id: 'user-company-team-only',
+        name: 'Company Team User',
+        email: 'company-team@example.com',
+        globalRoles: ['user'],
+        applications: [],
+        companies: [
+          {
+            id: 'company-x',
+            name: 'Company X',
+            roles: [],
+            applications: [
+              {
+                id: 'app-x',
+                name: 'App X',
+                roles: [],
+                teams: [
+                  {
+                    id: 'company-only-team',
+                    name: 'Company Only Team',
+                    roles: ['team_member'],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      expect(hasAffiliation(userWithTeamOnlyInCompanyApps, 'team', 'company-only-team')).toBe(true);
+    });
   });
 
   describe('edge cases', () => {
@@ -186,6 +206,16 @@ describe('Hierarchical Affiliations', () => {
       const roles = getRolesForContext(mockUser, context);
       // Should not have app-1 roles
       expect(roles).not.toContain('app_owner');
+    });
+
+    it('should return false for unknown affiliation type', () => {
+      expect(
+        hasAffiliation(
+          mockUser,
+          'unknown' as unknown as 'company' | 'application' | 'team',
+          'any-id',
+        ),
+      ).toBe(false);
     });
   });
 });
