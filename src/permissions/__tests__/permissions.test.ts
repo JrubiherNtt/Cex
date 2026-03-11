@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { Permissions } from '../core/index';
-import { defaultPermissionConfig } from '../core/config';
+import { createPermissionConfigFromLayouts, defaultPermissionConfig } from '../core/config';
 
 describe('Permissions', () => {
   let permissions: Permissions;
@@ -94,10 +94,64 @@ describe('Permissions', () => {
   });
 
   describe('can', () => {
-    it('should evaluate generic resource access', () => {
+    it('should return true for matching static policy with string resource', () => {
+      const staticPermissions = new Permissions({
+        config: {
+          roles: {
+            admin: [{ action: 'view', resource: 'company.detail' }],
+          },
+        },
+      });
+
       const admin = { roles: ['admin'] };
-      // This is a fallback method; behavior depends on evaluator implementation
-      expect(permissions.can(admin, 'view', 'some_resource')).toBeDefined();
+      expect(staticPermissions.can(admin, 'view', 'company.detail')).toBe(true);
+    });
+
+    it('should return true for matching static policy with object resource', () => {
+      const staticPermissions = new Permissions({
+        config: {
+          roles: {
+            admin: [{ action: 'view', resource: 'company.detail' }],
+          },
+        },
+      });
+
+      const admin = { roles: ['admin'] };
+      expect(staticPermissions.can(admin, 'view', { id: 'company.detail' })).toBe(true);
+    });
+
+    it('should use dynamic ABAC policy functions when provided', () => {
+      const dynamicPermissions = new Permissions({
+        config: {
+          roles: {
+            manager: [
+              (user, resource) => user.action === 'edit' && resource.path === 'applications.detail',
+            ],
+          },
+        },
+      });
+
+      const manager = { roles: ['manager'] };
+      expect(dynamicPermissions.can(manager, 'edit', 'applications.detail')).toBe(true);
+      expect(dynamicPermissions.can(manager, 'view', 'applications.detail')).toBe(false);
+    });
+
+    it('should return false when no policy matches', () => {
+      const staticPermissions = new Permissions({
+        config: {
+          roles: {
+            admin: [{ action: 'view', resource: 'company.detail' }],
+          },
+        },
+      });
+
+      const admin = { roles: ['admin'] };
+      expect(staticPermissions.can(admin, 'delete', 'company.detail')).toBe(false);
+      expect(staticPermissions.can(admin, 'view', 'applications.detail')).toBe(false);
+    });
+
+    it('should return false when user has no roles', () => {
+      expect(permissions.can({ roles: [] }, 'view', 'company.detail')).toBe(false);
     });
   });
 
@@ -122,6 +176,28 @@ describe('Permissions', () => {
     it('should show banner to anonymous users on company detail', () => {
       const anonymous = { roles: ['anonymous'] };
       expect(permissions.canAction(anonymous, 'company.detail', 'show_banner')).toBe(true);
+    });
+
+    it('should return false for invalid nested action path', () => {
+      const admin = { roles: ['admin'] };
+      expect(permissions.canAction(admin, 'company.invalid.detail', 'create')).toBe(false);
+    });
+  });
+
+  describe('config helpers', () => {
+    it('should create a permission config preserving layouts', () => {
+      const layouts = {
+        company: {
+          list: {
+            show: ['admin'],
+            actions: { create: ['admin'] },
+          },
+        },
+      };
+
+      const config = createPermissionConfigFromLayouts(layouts);
+      expect(config.roles).toEqual({});
+      expect(config.layouts).toEqual(layouts);
     });
   });
 });
