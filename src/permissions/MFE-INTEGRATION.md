@@ -41,8 +41,8 @@ Aquí el Shell monta `MFE1` y `MFE3` en paralelo, mientras `MFE1` importa a
 `MFE2` dentro de su propio árbol. Esto es útil cuando un conjunto de UI depende
 de otro pero se despliega como proyecto separado.
 
-En este repositorio hay un ejemplo completo (`shell-chain-example.tsx` junto a
-`mfe1.tsx`, `mfe2.tsx` y `mfe3.tsx`) que demuestra el patrón con permisos
+En este repositorio hay un ejemplo completo (`examples/shell-chain-example.tsx` junto a
+`examples/mfe1.tsx`, `examples/mfe2.tsx` y `examples/mfe3.tsx`) que demuestra el patrón con permisos
 jerárquicos.
 
 ```
@@ -372,7 +372,7 @@ const nextConfig = {
         name: 'companies_mfe',
         filename: 'static/chunks/remoteEntry.js',
         exposes: {
-          './CompaniesMFE': './src/permissions/mfe-examples.tsx',
+          './CompaniesMFE': './src/permissions/examples/mfe-examples.tsx',
         },
         shared: {
           react: { singleton: true },
@@ -422,5 +422,6 @@ export async function bootstrap(props: any) {
 ## 7. Ejemplo Completo - Integración
 
 Ver archivos:
-- `shell-example.tsx` — Configuración del Shell
-- `mfe-examples.tsx` — Diferentes MFEs
+
+- `examples/shell-example.tsx` — Configuración del Shell
+- `examples/mfe-examples.tsx` — Diferentes MFEs

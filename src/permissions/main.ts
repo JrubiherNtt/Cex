@@ -32,9 +32,6 @@ export { PermissionsProvider, usePermissions, ShowIf } from './react';
 // Exporta configuración default
 export { defaultPermissionConfig, createPermissionConfigFromLayouts } from './config';
 
-// Exporta ejemplo (opcional, para demostración)
-export { ExampleApp } from './example';
-
 // Exporta tipos y utilidades para afiliaciones jerárquicas
 export type {
   UserAffiliation,

@@ -484,7 +484,7 @@ describe('useHierarchicalPermissions Hook', () => {
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ApplicationsMFE } from '../../permissions/mfe-examples';
+import { ApplicationsMFE } from '../../permissions/examples/mfe-examples';
 import { PermissionsProvider } from '../../permissions/react';
 import { defaultPermissionConfig } from '../../permissions/config';
 import type { UserWithAffiliations } from '../../permissions/affiliations';

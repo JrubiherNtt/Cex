@@ -18,7 +18,7 @@ An RBAC/ABAC permission system library for React applications with hierarchical 
 
 📖 **[Main Documentation](src/permissions/USAGE.md)** — Basic and advanced usage patterns
 
-🏗️ **[Architecture](src/permissions/ARCHITECTURE.md)** — System design and data models
+🏗️ **[Architecture](ARCHITECTURE.md)** — System design and data models
 
 🔐 **[Hierarchical Permissions](src/permissions/HIERARCHICAL.md)** — Context-aware role resolution
 
@@ -157,12 +157,14 @@ function ApplicationsMFE({ companyId }) {
 ## API Integration
 
 For connecting to real APIs with token management and server validation:
+
 - See [API-INTEGRATION.md](src/permissions/API-INTEGRATION.md)
 - Includes: user fetching, token refresh, server-side middleware, caching, WebSocket updates
 
 ## Testing
 
 For comprehensive testing patterns:
+
 - See [TESTING.md](src/permissions/TESTING.md)
 - Includes: unit tests, integration tests, E2E tests, performance tests
 
@@ -174,10 +176,10 @@ Full API reference and examples: [src/permissions/USAGE.md](src/permissions/USAG
 
 ### Proof of Concept (POC)
 
-A minimal demo component lives at `src/permissions/poc.tsx`. You can import it directly in a React application or the example project to quickly verify permission behaviors.
+A minimal demo component lives at `src/permissions/examples/poc.tsx`. You can import it directly in a React application or the example project to quickly verify permission behaviors.
 
 ```tsx
-import POC from '@cex/permissions/poc';
+import POC from './src/permissions/examples/poc';
 
 function App() {
   return <POC />;

@@ -1,6 +1,5 @@
 // mfe2.tsx
-import React from 'react';
-import { useHierarchicalPermissions } from './useHierarchicalPermissions';
+import { useHierarchicalPermissions } from '../useHierarchicalPermissions';
 
 export interface MFE2Props {
   companyId: string;

@@ -3,14 +3,13 @@
 // Run this component by importing it into a Vite/React sandbox or the example
 // project for quick evaluation.
 
-import React from 'react';
 import {
   PermissionsProvider,
   usePermissions,
   ShowIf,
-} from './react';
-import { defaultPermissionConfig } from './config';
-import { createAffiliationEvaluator } from './hierarchical';
+} from '../react';
+import { defaultPermissionConfig } from '../config';
+import { createAffiliationEvaluator } from '../hierarchical';
 
 // sample user with hierarchical roles
 const sampleUser = {
@@ -55,7 +54,7 @@ function Dashboard() {
       </ShowIf>
 
       <p>
-        Can create instances? {canAction(sampleUser, 'company.detail', 'edit_instances') ? '✅' : '❌'}
+        Can create instances? {canAction('company.detail', 'edit_instances') ? '✅' : '❌'}
       </p>
     </div>
   );

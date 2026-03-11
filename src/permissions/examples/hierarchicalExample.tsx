@@ -4,14 +4,14 @@
  */
 
 import { useState } from 'react';
-import { PermissionsProvider } from './react';
-import { useHierarchicalPermissions } from './useHierarchicalPermissions';
+import { PermissionsProvider } from '../react';
+import { useHierarchicalPermissions } from '../useHierarchicalPermissions';
 import {
   UserWithAffiliations,
   PermissionContext,
-} from './affiliations';
-import { createAffiliationEvaluator } from './hierarchical';
-import { defaultPermissionConfig } from './config';
+} from '../affiliations';
+import { createAffiliationEvaluator } from '../hierarchical';
+import { defaultPermissionConfig } from '../config';
 
 // Mock user with hierarchical affiliations
 const mockUserWithAffiliations: UserWithAffiliations = {
