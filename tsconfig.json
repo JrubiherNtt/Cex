@@ -34,6 +34,7 @@
   },
   "include": ["src"],
   "exclude": [
+    "src/permissions/examples/**",
     "src/**/*.example.tsx",
     "src/**/example.tsx",
     "src/**/shell-example.tsx",

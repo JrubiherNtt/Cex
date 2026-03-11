@@ -16,17 +16,21 @@ An RBAC/ABAC permission system library for React applications with hierarchical 
 
 ## Quick Links
 
-📖 **[Main Documentation](src/permissions/USAGE.md)** — Basic and advanced usage patterns
+📖 **[Main Documentation](docs/permissions/USAGE.md)** — Basic and advanced usage patterns
 
-🏗️ **[Architecture](src/permissions/ARCHITECTURE.md)** — System design and data models
+🚀 **[Getting Started](docs/GETTING-STARTED.md)** — Guided onboarding by scenario
 
-🔐 **[Hierarchical Permissions](src/permissions/HIERARCHICAL.md)** — Context-aware role resolution
+🏗️ **[Architecture](docs/ARCHITECTURE.md)** — System design and data models
 
-🔧 **[MFE Integration](src/permissions/MFE-INTEGRATION.md)** — Shell + Micro-frontends integration (recommended)
+📦 **[Project Summary](docs/SUMMARY.md)** — Technical snapshot and implementation status
 
-🌐 **[API Integration](src/permissions/API-INTEGRATION.md)** — Server connection, token management, caching
+🔐 **[Hierarchical Permissions](docs/permissions/HIERARCHICAL.md)** — Context-aware role resolution
 
-✅ **[Testing Guide](src/permissions/TESTING.md)** — Unit, integration, and E2E testing
+🔧 **[MFE Integration](docs/permissions/MFE-INTEGRATION.md)** — Shell + Micro-frontends integration (recommended)
+
+🌐 **[API Integration](docs/permissions/API-INTEGRATION.md)** — Server connection, token management, caching
+
+✅ **[Testing Guide](docs/permissions/TESTING.md)** — Unit, integration, and E2E testing
 
 ## Installation
 
@@ -121,7 +125,7 @@ function CompanyDetail({ companyId }) {
 
 ## Working with Micro-Frontends
 
-For Shell + MFE architecture, see [MFE-INTEGRATION.md](src/permissions/MFE-INTEGRATION.md).
+For Shell + MFE architecture, see [MFE-INTEGRATION.md](docs/permissions/MFE-INTEGRATION.md).
 
 **Example Shell setup:**
 
@@ -157,27 +161,29 @@ function ApplicationsMFE({ companyId }) {
 ## API Integration
 
 For connecting to real APIs with token management and server validation:
-- See [API-INTEGRATION.md](src/permissions/API-INTEGRATION.md)
+
+- See [API-INTEGRATION.md](docs/permissions/API-INTEGRATION.md)
 - Includes: user fetching, token refresh, server-side middleware, caching, WebSocket updates
 
 ## Testing
 
 For comprehensive testing patterns:
-- See [TESTING.md](src/permissions/TESTING.md)
+
+- See [TESTING.md](docs/permissions/TESTING.md)
 - Includes: unit tests, integration tests, E2E tests, performance tests
 
 ## Documentation
 
-Full API reference and examples: [src/permissions/USAGE.md](src/permissions/USAGE.md)
+Full API reference and examples: [docs/permissions/USAGE.md](docs/permissions/USAGE.md)
 
 ## Development
 
 ### Proof of Concept (POC)
 
-A minimal demo component lives at `src/permissions/poc.tsx`. You can import it directly in a React application or the example project to quickly verify permission behaviors.
+A minimal demo component lives at `src/permissions/examples/poc.tsx`. You can import it directly in a React application or the example project to quickly verify permission behaviors.
 
 ```tsx
-import POC from '@cex/permissions/poc';
+import POC from './src/permissions/examples/poc';
 
 function App() {
   return <POC />;

@@ -13,12 +13,12 @@ Complete production-ready **RBAC/ABAC permission system library** for Vite + Rea
 
 ### ✅ Core Permission Engine
 
-1. **Types** ([types.ts](src/permissions/types.ts) ~80 lines)
+1. **Types** ([types.ts](../src/permissions/types.ts) ~80 lines)
    - Role, Action, Resource, Policy, PermissionConfig
    - Support for RBAC (static) and ABAC (dynamic/function-based) policies
    - Hierarchical context types (UserWithAffiliations, ApplicationAffiliation, TeamAffiliation)
 
-2. **Evaluator** ([index.ts](src/permissions/index.ts) ~110 lines)
+2. **Evaluator** ([index.ts](../src/permissions/index.ts) ~110 lines)
    - `Permissions` class with three main methods:
      - `can(user, action, resource, context?)` — Generic permission check
      - `visible(user, componentId)` — Component visibility check
@@ -26,30 +26,30 @@ Complete production-ready **RBAC/ABAC permission system library** for Vite + Rea
    - Supports nested permission paths like "company.detail.edit_instances"
    - Pluggable evaluator pattern for custom logic
 
-3. **React Integration** ([react.tsx](src/permissions/react.tsx) ~90 lines)
+3. **React Integration** ([react.tsx](../src/permissions/react.tsx) ~90 lines)
    - `<PermissionsProvider>` — Context provider with user + config
    - `usePermissions()` hook — Basic permission access
    - `<ShowIf>` component — Conditional rendering based on permissions
 
-4. **Configuration** ([config.ts](src/permissions/config.ts) ~175 lines)
+4. **Configuration** ([config.ts](../src/permissions/config.ts) ~175 lines)
    - `defaultPermissionConfig` — Converted from user's permisos.jsonc
    - Nested structure: companies → applications → teams
    - Helper: `createPermissionConfigFromLayouts()`
 
 ### ✅ Hierarchical Permission System
 
-1. **Affiliation Types** ([affiliations.ts](src/permissions/affiliations.ts) ~130 lines)
+1. **Affiliation Types** ([affiliations.ts](../src/permissions/affiliations.ts) ~130 lines)
    - `UserWithAffiliations` — User with global roles + nested affiliations
    - Global → Company → Application → Team hierarchy
    - `getRolesForContext(user, context?)` — Role aggregation across levels
    - `hasAffiliation(user, type, id)` — Recursive affiliation checks
 
-2. **Dynamic Evaluator** ([hierarchical.ts](src/permissions/hierarchical.ts) ~60 lines)
+2. **Dynamic Evaluator** ([hierarchical.ts](../src/permissions/hierarchical.ts) ~60 lines)
    - `createAffiliationEvaluator()` — Returns evaluator function
    - Resolves roles dynamically from nested structure
    - Supports arbitrary context passing
 
-3. **Hierarchical Hook** ([useHierarchicalPermissions.ts](src/permissions/useHierarchicalPermissions.ts) ~130 lines)
+3. **Hierarchical Hook** ([useHierarchicalPermissions.ts](../src/permissions/useHierarchicalPermissions.ts) ~130 lines)
    - 7 context-aware helper methods:
      - `getRoles(context?)` — Get effective roles in context
      - `getCompanies()` — List accessible companies
@@ -60,14 +60,14 @@ Complete production-ready **RBAC/ABAC permission system library** for Vite + Rea
 
 ### ✅ Integration Examples
 
-1. **Shell Example** ([shell-example.tsx](src/permissions/shell-example.tsx) ~190 lines)
+1. **Shell Example** ([shell-example.tsx](../src/permissions/examples/shell-example.tsx) ~190 lines)
    - Complete Shell app showing:
      - User data fetching (mock API)
      - Context selector (company/app dropdowns)
      - Permission provider initialization
      - State management and context passing
 
-2. **MFE Examples** ([mfe-examples.tsx](src/permissions/mfe-examples.tsx) ~340 lines)
+2. **MFE Examples** ([mfe-examples.tsx](../src/permissions/examples/mfe-examples.tsx) ~340 lines)
    - 4 production-ready MFE components:
      - **CompaniesMFE** — List companies with role-based actions
      - **ApplicationsMFE** — List apps in company with conditional "Create"
@@ -76,29 +76,29 @@ Complete production-ready **RBAC/ABAC permission system library** for Vite + Rea
 
 ### ✅ Comprehensive Documentation
 
-1. **[USAGE.md](src/permissions/USAGE.md)** — 400+ lines
+1. **[USAGE.md](./permissions/USAGE.md)** — 400+ lines
    - Basic and advanced permission usage patterns
    - React hook and component API reference
    - Configuration examples
 
-2. **[ARCHITECTURE.md](src/permissions/ARCHITECTURE.md)**
+2. **[ARCHITECTURE.md](ARCHITECTURE.md)**
    - System design and data models
    - User data structure diagrams
    - Permission hierarchy explanation
 
-3. **[HIERARCHICAL.md](src/permissions/HIERARCHICAL.md)** — 400+ lines
+3. **[HIERARCHICAL.md](./permissions/HIERARCHICAL.md)** — 400+ lines
    - Multi-level role resolution
    - Context propagation patterns
    - API reference for hierarchical operations
    - Real-world usage examples
 
-4. **[MFE-INTEGRATION.md](src/permissions/MFE-INTEGRATION.md)** — Recommended Starting Point
+4. **[MFE-INTEGRATION.md](./permissions/MFE-INTEGRATION.md)** — Recommended Starting Point
    - Shell + MFE architecture patterns
    - 3 communication strategies (URL params, Context, Event Bus)
    - Real use case walkthroughs (change company, create resource, etc.)
    - Module Federation and Single SPA integration
 
-5. **[API-INTEGRATION.md](src/permissions/API-INTEGRATION.md)** — Server Connection
+5. **[API-INTEGRATION.md](./permissions/API-INTEGRATION.md)** — Server Connection
    - User fetching with UserResponse conversion
    - Token management and refresh
    - Server-side middleware (authentication & permissions)
@@ -107,7 +107,7 @@ Complete production-ready **RBAC/ABAC permission system library** for Vite + Rea
    - Retry patterns with exponential backoff
    - Error boundaries and fallbacks
 
-6. **[TESTING.md](src/permissions/TESTING.md)** — Test Patterns
+6. **[TESTING.md](./permissions/TESTING.md)** — Test Patterns
    - Unit tests for RBAC/ABAC logic
    - Integration tests for hierarchical context
    - React component tests (<ShowIf>, hooks)
@@ -162,18 +162,11 @@ cex/
 │   ├── useHierarchicalPermissions.ts
 │   │
 │   ├── **Examples & Integration**
-│   ├── shell-example.tsx           # Shell app integration
-│   ├── mfe-examples.tsx            # 4 MFE patterns
-│   ├── example.tsx                 # Simple example
-│   ├── hierarchicalExample.tsx      # Hierarchical example
-│   │
-│   ├── **Documentation**
-│   ├── USAGE.md                    # API reference
-│   ├── ARCHITECTURE.md             # System design
-│   ├── HIERARCHICAL.md             # Hierarchical guide
-│   ├── MFE-INTEGRATION.md          # ⭐ Start here for Shell+MFE
-│   ├── API-INTEGRATION.md          # Server integration
-│   ├── TESTING.md                  # Test patterns
+│   ├── examples/
+│   │   ├── shell-example.tsx       # Shell app integration
+│   │   ├── mfe-examples.tsx        # 4 MFE patterns
+│   │   ├── example.tsx             # Simple example
+│   │   └── hierarchicalExample.tsx # Hierarchical example
 │   │
 │   ├── __tests__/
 │   ├── permissions.test.ts         # 17 core tests
@@ -190,6 +183,17 @@ cex/
 ├── tsconfig.json                  # TypeScript config (with rootDir, exclusions)
 ├── vite.config.ts                 # Vite build config
 ├── vitest.config.ts               # Test config
+├── docs/                           # Root documentation hub
+│   ├── GETTING-STARTED.md
+│   ├── ARCHITECTURE.md
+│   ├── SUMMARY.md
+│   ├── steps.md
+│   └── permissions/
+│       ├── USAGE.md
+│       ├── HIERARCHICAL.md
+│       ├── MFE-INTEGRATION.md
+│       ├── API-INTEGRATION.md
+│       └── TESTING.md
 ├── .eslintrc.cjs                  # Linting rules
 └── README.md                       # Updated with guides & examples
 ```
@@ -253,7 +257,7 @@ c3caf6f - Fix TypeScript config: add rootDir and exclude example files
 ## How to Use
 
 ### **Start Here:** Micro-Frontend Architecture
-👉 [MFE-INTEGRATION.md](src/permissions/MFE-INTEGRATION.md)
+👉 [MFE-INTEGRATION.md](./permissions/MFE-INTEGRATION.md)
 
 ### For Shell Setup
 ```tsx
@@ -277,7 +281,7 @@ const { getCompanies, getRoles, canAction } = useHierarchicalPermissions();
 ```
 
 ### API Integration
-See [API-INTEGRATION.md](src/permissions/API-INTEGRATION.md) for:
+See [API-INTEGRATION.md](./permissions/API-INTEGRATION.md) for:
 - User fetching & token management
 - Server middleware
 - Permission caching
@@ -336,7 +340,7 @@ pnpm lint
 
 ## Export Map
 
-Main entry point ([main.ts](src/permissions/main.ts)) exports:
+Main entry point ([main.ts](../src/permissions/main.ts)) exports:
 
 **Types:**
 - `Role`, `Action`, `Resource`, `Policy`, `PermissionConfig`

@@ -8,8 +8,8 @@ Una librería flexible de gestión de permisos (RBAC/ABAC) para React + Vite.
 
 ```tsx
 import React from 'react';
-import { PermissionsProvider } from './permissions/react';
-import { defaultPermissionConfig } from './permissions/config';
+import { PermissionsProvider } from './react';
+import { defaultPermissionConfig } from './config';
 
 function App() {
   const currentUser = {
@@ -29,7 +29,7 @@ function App() {
 ### 2. Usar el Hook para verificar permisos
 
 ```tsx
-import { usePermissions } from './permissions/react';
+import { usePermissions } from './react';
 
 function CompanyDetail() {
   const { visible, canAction } = usePermissions();
@@ -56,7 +56,7 @@ function CompanyDetail() {
 ### 3. Usar el componente `<ShowIf>`
 
 ```tsx
-import { ShowIf } from './permissions/react';
+import { ShowIf } from './react';
 
 function Navigation() {
   return (
@@ -285,8 +285,8 @@ function ProtectedRoute({ componentId, action, children }) {
 Usa la clase `Permissions` directamente en tests:
 
 ```typescript
-import { Permissions } from './permissions/index';
-import { defaultPermissionConfig } from './permissions/config';
+import { Permissions } from './index';
+import { defaultPermissionConfig } from './config';
 
 test('admin can edit company instances', () => {
   const perms = new Permissions({ config: defaultPermissionConfig });

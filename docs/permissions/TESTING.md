@@ -9,8 +9,8 @@ Esta guía muestra cómo escribir tests exhaustivos para el sistema de permisos 
 ```typescript
 // __tests__/permissions.unit.test.ts
 import { describe, it, expect } from 'vitest';
-import { Permissions } from '../permissions/index';
-import { defaultPermissionConfig } from '../permissions/config';
+import { Permissions } from '../index';
+import { defaultPermissionConfig } from '../config';
 
 describe('Permissions - Basic RBAC', () => {
   const permissions = new Permissions(defaultPermissionConfig);
@@ -153,9 +153,9 @@ describe('Permissions - ABAC (Attribute-Based)', () => {
 ```typescript
 // __tests__/hierarchical.integration.test.ts
 import { describe, it, expect } from 'vitest';
-import { createAffiliationEvaluator } from '../permissions/hierarchical';
-import { getRolesForContext } from '../permissions/affiliations';
-import type { UserWithAffiliations } from '../permissions/affiliations';
+import { createAffiliationEvaluator } from '../hierarchical';
+import { getRolesForContext } from '../affiliations';
+import type { UserWithAffiliations } from '../affiliations';
 
 describe('Hierarchical Permissions Integration', () => {
   const evaluator = createAffiliationEvaluator();
@@ -307,9 +307,9 @@ describe('Access Denial Cases', () => {
 // __tests__/ShowIf.test.tsx
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { ShowIf } from '../permissions/react';
-import { PermissionsProvider } from '../permissions/react';
-import { defaultPermissionConfig } from '../permissions/config';
+import { ShowIf } from '../react';
+import { PermissionsProvider } from '../react';
+import { defaultPermissionConfig } from '../config';
 
 describe('ShowIf Component', () => {
   const user = {
@@ -384,9 +384,9 @@ describe('ShowIf Component', () => {
 // __tests__/useHierarchicalPermissions.test.tsx
 import { describe, it, expect } from 'vitest';
 import { renderHook } from '@testing-library/react';
-import { useHierarchicalPermissions } from '../permissions/useHierarchicalPermissions';
-import { PermissionsProvider } from '../permissions/react';
-import type { UserWithAffiliations } from '../permissions/affiliations';
+import { useHierarchicalPermissions } from '../useHierarchicalPermissions';
+import { PermissionsProvider } from '../react';
+import type { UserWithAffiliations } from '../affiliations';
 
 describe('useHierarchicalPermissions Hook', () => {
   const mockUser: UserWithAffiliations = {
@@ -484,10 +484,10 @@ describe('useHierarchicalPermissions Hook', () => {
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ApplicationsMFE } from '../../permissions/mfe-examples';
-import { PermissionsProvider } from '../../permissions/react';
-import { defaultPermissionConfig } from '../../permissions/config';
-import type { UserWithAffiliations } from '../../permissions/affiliations';
+import { ApplicationsMFE } from '../../examples/mfe-examples';
+import { PermissionsProvider } from '../../react';
+import { defaultPermissionConfig } from '../../config';
+import type { UserWithAffiliations } from '../../affiliations';
 
 describe('E2E: Create Application Flow', () => {
   const ownerUser: UserWithAffiliations = {
@@ -682,8 +682,8 @@ describe('E2E: Change Company Context', () => {
 ```typescript
 // __tests__/performance.test.ts
 import { describe, it, expect } from 'vitest';
-import { getRolesForContext } from '../permissions/affiliations';
-import type { UserWithAffiliations } from '../permissions/affiliations';
+import { getRolesForContext } from '../affiliations';
+import type { UserWithAffiliations } from '../affiliations';
 
 describe('Permissions Performance', () => {
   // Crear usuario con muchas afiliaciones

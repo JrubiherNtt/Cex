@@ -1,15 +1,15 @@
 // shell-chain-example.tsx
 // Demonstrates Shell coordinating MFEs: MFE1 (which consumes MFE2) and MFE3.
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   PermissionsProvider,
-} from './react';
-import { defaultPermissionConfig } from './config';
-import { createAffiliationEvaluator } from './hierarchical';
+} from '../context/permissions-context';
+import { defaultPermissionConfig } from '../core/config';
+import { createAffiliationEvaluator } from '../hierarchical/hierarchical';
 import { MFE1 } from './mfe1';
 import { MFE3 } from './mfe3';
-import type { UserWithAffiliations } from './affiliations';
+import type { UserWithAffiliations } from '../hierarchical/affiliations';
 
 const demoUser: UserWithAffiliations = {
   id: 'chain-user',

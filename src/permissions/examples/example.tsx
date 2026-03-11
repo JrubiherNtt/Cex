@@ -1,6 +1,6 @@
 import React from 'react';
-import { PermissionsProvider, usePermissions, ShowIf } from './react';
-import { defaultPermissionConfig } from './config';
+import { PermissionsProvider, usePermissions, ShowIf } from '../context/permissions-context';
+import { defaultPermissionConfig } from '../core/config';
 
 /**
  * Example App showcasing the permissions system
