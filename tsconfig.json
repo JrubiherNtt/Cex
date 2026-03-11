@@ -1,21 +1,21 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "es2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
+    "module": "es2020",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
 
     /* Bundler mode */
     "noEmit": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmitOnError": true,
     "jsx": "react-jsx",
+    "experimentalDecorators": true,
 
     /* Linting */
     "strict": true,
@@ -25,12 +25,15 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["vitest/globals", "@types/testing-library__jest-dom"]
   },
   "include": ["src"],
   "exclude": [

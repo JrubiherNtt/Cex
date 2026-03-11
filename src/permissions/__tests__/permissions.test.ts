@@ -1,4 +1,3 @@
-import { describe, it, expect, beforeEach } from 'vitest';
 import { Permissions } from '../core/index';
 import { createPermissionConfigFromLayouts, defaultPermissionConfig } from '../core/config';
 
@@ -153,6 +152,20 @@ describe('Permissions', () => {
     it('should return false when user has no roles', () => {
       expect(permissions.can({ roles: [] }, 'view', 'company.detail')).toBe(false);
     });
+
+    it('should support static policies with object resource when resource.id is missing', () => {
+      const sharedResource = { path: 'company.detail' };
+      const staticPermissions = new Permissions({
+        config: {
+          roles: {
+            admin: [{ action: 'view', resource: sharedResource } as any],
+          },
+        },
+      });
+
+      const admin = { roles: ['admin'] };
+      expect(staticPermissions.can(admin, 'view', sharedResource as any)).toBe(true);
+    });
   });
 
   describe('complex scenarios', () => {
@@ -181,6 +194,61 @@ describe('Permissions', () => {
     it('should return false for invalid nested action path', () => {
       const admin = { roles: ['admin'] };
       expect(permissions.canAction(admin, 'company.invalid.detail', 'create')).toBe(false);
+    });
+  });
+
+  describe('branch coverage guards', () => {
+    it('should return false when user has roles not present in config', () => {
+      const staticPermissions = new Permissions({
+        config: {
+          roles: {
+            admin: [{ action: 'view', resource: 'company.detail' }],
+          },
+        },
+      });
+
+      expect(staticPermissions.can({ roles: ['ghost_role'] }, 'view', 'company.detail')).toBe(
+        false,
+      );
+    });
+
+    it('should return false when user has no roles property', () => {
+      expect(permissions.can({}, 'view', 'company.detail')).toBe(false);
+      expect(permissions.visible({}, 'company.list')).toBe(false);
+      expect(permissions.canAction({}, 'company.detail', 'edit_instances')).toBe(false);
+    });
+
+    it('should return false when layouts are missing in config', () => {
+      const staticPermissions = new Permissions({
+        config: {
+          roles: {
+            admin: [{ action: 'view', resource: 'company.detail' }],
+          },
+        },
+      });
+
+      const admin = { roles: ['admin'] };
+      expect(staticPermissions.visible(admin, 'company.list')).toBe(false);
+      expect(staticPermissions.canAction(admin, 'company.detail', 'edit_instances')).toBe(false);
+    });
+
+    it('should return false when view has no show or actions definitions', () => {
+      const staticPermissions = new Permissions({
+        config: {
+          roles: {
+            admin: [{ action: 'view', resource: 'company.detail' }],
+          },
+          layouts: {
+            company: {
+              detail: {},
+            },
+          },
+        },
+      });
+
+      const admin = { roles: ['admin'] };
+      expect(staticPermissions.visible(admin, 'company.detail')).toBe(false);
+      expect(staticPermissions.canAction(admin, 'company.detail', 'edit_instances')).toBe(false);
     });
   });
 
